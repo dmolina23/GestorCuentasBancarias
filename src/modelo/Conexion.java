@@ -1,19 +1,25 @@
 package modelo;
 
+import com.mongodb.Block;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
+import java.util.Iterator;
+import java.util.function.Consumer;
 
 
 public class Conexion {
     private static MongoClient client = null;
-    private static DBCollection collection;
-    private static DB bd=null;
+    private static MongoCollection collection;
+    private static MongoDatabase bd=null;
 
     private Conexion(){
         client = new MongoClient("localhost", 27017);
-        MongoDatabase db = client.getDatabase("db1");
         System.out.println("Se ha creado la conexion");
     }
 
@@ -24,14 +30,14 @@ public class Conexion {
         return client;
     }
 
-    public static DB getBd() {
+    public static MongoDatabase getBd() {
         if (bd == null)
-            bd = client.getDB("db1");
+            bd = client.getDatabase("db1");
         System.out.println("Se ha accedido a la BD");
         return bd;
     }
 
-    public static DBCollection getCollection() {
+    public static MongoCollection getCollection() {
         if (collection != null)
             collection = bd.getCollection("accounts");
         return collection;
@@ -50,6 +56,10 @@ public class Conexion {
         Conexion conexion = new Conexion();
         Conexion.getConexion();
         Conexion.getCollection();
-        System.out.println(conexion);
+        //System.out.println(conexion);
+        System.out.println("Tenemos " + Conexion.getBd().getCollection("accounts").countDocuments() + " datos");
+        bd.getCollection("accounts").find().forEach((Consumer<Document>) (Document d) -> {
+            System.out.println(d.toJson()); }
+        );
     }
 }
