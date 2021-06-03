@@ -3,6 +3,7 @@ package modelo;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
 
 
 public class Conexion {
@@ -12,6 +13,7 @@ public class Conexion {
 
     private Conexion(){
         client = new MongoClient("localhost", 27017);
+        MongoDatabase db = client.getDatabase("db1");
         System.out.println("Se ha creado la conexion");
     }
 
