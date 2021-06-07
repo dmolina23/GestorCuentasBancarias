@@ -30,19 +30,6 @@ public class Conexion {
         return client;
     }
 
-    public static MongoDatabase getBd() {
-        if (bd == null)
-            bd = client.getDatabase("db1");
-        System.out.println("Se ha accedido a la BD");
-        return bd;
-    }
-
-    public static MongoCollection getCollection() {
-        if (collection != null)
-            collection = bd.getCollection("accounts");
-        return collection;
-    }
-
     public void cerrarConexion(){
         client.close();
     }
@@ -52,14 +39,11 @@ public class Conexion {
             client.close();
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Conexion conexion = new Conexion();
         Conexion.getConexion();
         Conexion.getCollection();
         //System.out.println(conexion);
         System.out.println("Tenemos " + Conexion.getBd().getCollection("accounts").countDocuments() + " datos");
-        bd.getCollection("accounts").find().forEach((Consumer<Document>) (Document d) -> {
-            System.out.println(d.toJson()); }
-        );
-    }
+    }*/
 }
