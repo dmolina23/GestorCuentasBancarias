@@ -18,16 +18,39 @@ public class ModeloTablas extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return 0;
+        return cuentas.size();
     }
 
     @Override
     public int getColumnCount() {
-        return 0;
+        return COLUMNAS.length;
     }
 
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        return null;
+    public Object getValueAt(int row, int column) {
+        Object celda = null;
+        switch (column) {
+            case 0:
+                celda = cuentas.get(row).getIban();
+                break;
+            case 1:
+                celda = cuentas.get(row).getCreditCard();
+                break;
+            case 2:
+                celda = cuentas.get(row).getBalance();
+                break;
+            case 3:
+                celda = cuentas.get(row).getFullName();
+                break;
+            case 4:
+                celda = cuentas.get(row).getDate();
+                break;
+        }
+        return celda;
+    }
+
+    @Override
+    public String getColumnName(int column) {
+        return COLUMNAS[column];
     }
 }
