@@ -50,6 +50,7 @@ public class CuentaDAONoSQL implements CuentaDAO {
     public boolean insertarCuenta(Cuenta cuenta) {
         long numInicial = coleccion.countDocuments();
         Document document = new Document();
+        document.put("_id", new ObjectId());
         document.put("iban",cuenta.getIban());
         document.put("creditCard", cuenta.getCreditCard());
         document.put("balance", cuenta.getBalance());
