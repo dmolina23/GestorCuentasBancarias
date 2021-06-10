@@ -1,6 +1,5 @@
 package modelo.DAO;
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import modelo.Conexion;
@@ -10,10 +9,7 @@ import org.bson.types.ObjectId;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -27,7 +23,7 @@ public class CuentaDAONoSQL implements CuentaDAO {
         coleccion.find().forEach((Consumer<Document>) (Document d) -> {
                     try {
                         listaCuentas.add(new Cuenta(
-                                d.getString(""),
+                                d.getObjectId("_id"),
                                 d.getString("iban"),
                                 d.getString("creditCard"),
                                 d.getDouble("balance"),
@@ -46,7 +42,7 @@ public class CuentaDAONoSQL implements CuentaDAO {
     @Override
     public boolean borrarCuentaPorId(String idCuenta) {
         Document document = new Document();
-        coleccion.deleteOne(document.append("_id",new ObjectId(idCuenta)));
+        coleccion.deleteOne(document.append("_id", new ObjectId(idCuenta)));
         return coleccion.deleteOne(document).getDeletedCount() != 0;
     }
 

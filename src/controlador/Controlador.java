@@ -27,7 +27,8 @@ public class Controlador {
 
     private void borrarFila() {
         int selectedRow = vista.getTable1().getSelectedRow();
-        modelo.removeRow(selectedRow);
+        int r = vista.getTable1().convertRowIndexToModel(selectedRow);
+        modelo.removeRow(r);
     }
 
     private void guardarCuenta() {

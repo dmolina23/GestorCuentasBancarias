@@ -2,17 +2,19 @@ package modelo.DTO;
 
 
 
+import org.bson.types.ObjectId;
+
 import java.util.Date;
 
 public class Cuenta {
-    private String id;
+    private ObjectId id;
     private String iban;
     private String creditCard;
     private Double balance;
     private String fullName;
     private Date date;
 
-    public Cuenta(String id, String iban, String creditCard, Double balance, String fullName, Date date) {
+    public Cuenta(ObjectId id, String iban, String creditCard, Double balance, String fullName, Date date) {
         this.id = id;
         this.iban = iban;
         this.creditCard = creditCard;
@@ -29,7 +31,7 @@ public class Cuenta {
         this.date = date;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
