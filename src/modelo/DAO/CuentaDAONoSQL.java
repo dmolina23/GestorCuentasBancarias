@@ -6,6 +6,7 @@ import com.mongodb.client.MongoCollection;
 import modelo.Conexion;
 import modelo.DTO.Cuenta;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,7 +46,7 @@ public class CuentaDAONoSQL implements CuentaDAO {
     @Override
     public boolean borrarCuentaPorId(String idCuenta) {
         Document document = new Document();
-        coleccion.deleteOne(document.append("_id",idCuenta));
+        coleccion.deleteOne(document.append("_id",new ObjectId(idCuenta)));
         return coleccion.deleteOne(document).getDeletedCount() != 0;
     }
 

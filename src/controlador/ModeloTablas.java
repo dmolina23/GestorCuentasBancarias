@@ -3,6 +3,7 @@ package controlador;
 import modelo.DAO.CuentaDAO;
 import modelo.DAO.CuentaDAONoSQL;
 import modelo.DTO.Cuenta;
+import org.bson.types.ObjectId;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
@@ -52,5 +53,22 @@ public class ModeloTablas extends AbstractTableModel {
     @Override
     public String getColumnName(int column) {
         return COLUMNAS[column];
+    }
+
+    public void addRow(Cuenta cuenta) {
+        cuentaDAO.insertarCuenta(cuenta);
+        cuentas.add(cuenta);
+        fireTableDataChanged();
+    }
+
+    public void removeRow(int row) {
+        if (row < 0)
+            return;
+        //eliminar de la BD
+        String id = cuentas.get(row).getId();
+        cuentaDAO.borrarCuentaPorId(id);
+        //eliminar de la lista
+        cuentas.remove(row);
+        fireTableDataChanged();
     }
 }
