@@ -46,9 +46,6 @@ public class Controlador {
         Cuenta cuenta = new Cuenta(iban,cCard,balance,name,date);
         modelo.addRow(cuenta);
 
-        //añdimos la cuenta a la BD
-        cuentaDAO.insertarCuenta(cuenta);
-
         hideAdd();
     }
 

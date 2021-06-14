@@ -65,11 +65,11 @@ public class ModeloTablas extends AbstractTableModel {
         if (row < 0)
             return;
         //eliminar de la BD
-        /* System.out.println(cuentas.get(row).getId()); */
         cuentaDAO.borrarCuentaPorId(cuentas.get(row).getId().toString());
 
         //eliminar de la lista
         cuentas.remove(row);
+
         fireTableDataChanged();
     }
 }
