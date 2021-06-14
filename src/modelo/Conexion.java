@@ -1,16 +1,8 @@
 package modelo;
 
-import com.mongodb.Block;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
-
-import java.util.Iterator;
-import java.util.function.Consumer;
 
 
 public class Conexion {
@@ -38,12 +30,4 @@ public class Conexion {
         if (client == null)
             client.close();
     }
-
-    /*public static void main(String[] args) {
-        Conexion conexion = new Conexion();
-        Conexion.getConexion();
-        Conexion.getCollection();
-        //System.out.println(conexion);
-        System.out.println("Tenemos " + Conexion.getBd().getCollection("accounts").countDocuments() + " datos");
-    }*/
 }

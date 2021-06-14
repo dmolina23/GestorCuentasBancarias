@@ -12,9 +12,9 @@ public class Cuenta {
     private String creditCard;
     private Double balance;
     private String fullName;
-    private Date date;
+    private String date;
 
-    public Cuenta(ObjectId id, String iban, String creditCard, Double balance, String fullName, Date date) {
+    public Cuenta(ObjectId id, String iban, String creditCard, Double balance, String fullName, String date) {
         this.id = id;
         this.iban = iban;
         this.creditCard = creditCard;
@@ -23,7 +23,7 @@ public class Cuenta {
         this.date = date;
     }
 
-    public Cuenta(String iban, String creditCard, Double balance, String fullName, Date date) {
+    public Cuenta(String iban, String creditCard, Double balance, String fullName, String date) {
         this.iban = iban;
         this.creditCard = creditCard;
         this.balance = balance;
@@ -51,7 +51,7 @@ public class Cuenta {
         return fullName;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -71,7 +71,7 @@ public class Cuenta {
         this.fullName = fullName;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -7,8 +7,7 @@ import modelo.DTO.Cuenta;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -21,17 +20,16 @@ public class CuentaDAONoSQL implements CuentaDAO {
     public List<Cuenta> listarCuentas() {
         List<Cuenta> listaCuentas = new ArrayList<>();
         coleccion.find().forEach((Consumer<Document>) (Document d) -> {
-                    try {
-                        listaCuentas.add(new Cuenta(
-                                d.getObjectId("_id"),
-                                d.getString("iban"),
-                                d.getString("creditCard"),
-                                d.getDouble("balance"),
-                                d.getString("fullName"),
-                                new SimpleDateFormat("yyyy-MM-dd").parse(d.getString("date"))));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+            String fecha;
+            LocalDate fechaActual = LocalDate.now();
+            listaCuentas.add(new Cuenta(
+                    d.getObjectId("_id"),
+                    d.getString("iban"),
+                    d.getString("creditCard"),
+                    d.getDouble("balance"),
+                    d.getString("fullName"),
+                    String.format("%d-%d-%d", fechaActual.getYear(),fechaActual.getMonthValue(),
+                            fechaActual.getDayOfMonth())));
             }
         );
         System.out.println(listaCuentas);
@@ -54,11 +52,7 @@ public class CuentaDAONoSQL implements CuentaDAO {
         document.append("creditCard", cuenta.getCreditCard());
         document.append("balance", cuenta.getBalance());
         document.append("fullName", cuenta.getFullName());
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(cuenta.getDate().getYear());
-        stringBuilder.append(cuenta.getDate().getMonth());
-        stringBuilder.append(cuenta.getDate().getDay());
-        document.append("date", stringBuilder.toString());
+        document.append("date", cuenta.getDate());
         coleccion.insertOne(document);
         long numFinal = coleccion.countDocuments();
         return (numFinal - numInicial) != 0;
