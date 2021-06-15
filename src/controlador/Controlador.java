@@ -28,10 +28,8 @@ public class Controlador {
     }
 
     private void borrarFila() {
-        //borrar de la lista
         int selectedRow = vista.getTable1().getSelectedRow();
         int r = vista.getTable1().convertRowIndexToModel(selectedRow);
-
         modelo.removeRow(r);
     }
 

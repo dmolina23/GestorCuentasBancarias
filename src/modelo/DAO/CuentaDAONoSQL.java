@@ -2,15 +2,19 @@ package modelo.DAO;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Updates;
 import modelo.Conexion;
 import modelo.DTO.Cuenta;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+
+import static com.mongodb.client.model.Filters.eq;
 
 public class CuentaDAONoSQL implements CuentaDAO {
     private static MongoClient conexion = Conexion.getConexion();
@@ -28,8 +32,7 @@ public class CuentaDAONoSQL implements CuentaDAO {
                     d.getString("creditCard"),
                     d.getDouble("balance"),
                     d.getString("fullName"),
-                    String.format("%d-%d-%d", fechaActual.getYear(),fechaActual.getMonthValue(),
-                            fechaActual.getDayOfMonth())));
+                    d.getString("date")));
             }
         );
         System.out.println(listaCuentas);
@@ -59,7 +62,11 @@ public class CuentaDAONoSQL implements CuentaDAO {
     }
 
     @Override
-    public boolean actualizarCuentaPorId(Cuenta cuenta) {
-        return false;
+    public void actualizarCuentaPorId(Cuenta cuenta) {
+        coleccion.updateOne(eq("_id", cuenta.getId()),Updates.combine(
+                Updates.set("iban",cuenta.getIban()),
+                Updates.set("creditCard",cuenta.getCreditCard()),
+                Updates.set("fullName",cuenta.getFullName())
+        ));
     }
 }

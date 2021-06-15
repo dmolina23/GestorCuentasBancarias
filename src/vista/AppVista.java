@@ -80,6 +80,29 @@ public class AppVista {
         return cancelButton;
     }
 
+    static {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    try {
+                        UIManager.setLookAndFeel(info.getClassName());
+                    } catch (ClassNotFoundException classNotFoundException) {
+                        classNotFoundException.printStackTrace();
+                    } catch (InstantiationException instantiationException) {
+                        instantiationException.printStackTrace();
+                    } catch (IllegalAccessException illegalAccessException) {
+                        illegalAccessException.printStackTrace();
+                    } catch (UnsupportedLookAndFeelException unsupportedLookAndFeelException) {
+                        unsupportedLookAndFeelException.printStackTrace();
+                    }
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            // If Nimbus is not available, you can set the GUI to another look and feel.
+        }
+    }
+
     public AppVista() {
         JFrame frame = new JFrame("App Subida de Nota");
         frame.setContentPane(mainPanel);

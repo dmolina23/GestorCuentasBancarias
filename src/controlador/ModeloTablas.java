@@ -3,7 +3,6 @@ package controlador;
 import modelo.DAO.CuentaDAO;
 import modelo.DAO.CuentaDAONoSQL;
 import modelo.DTO.Cuenta;
-import org.bson.types.ObjectId;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
@@ -55,10 +54,36 @@ public class ModeloTablas extends AbstractTableModel {
         return COLUMNAS[column];
     }
 
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return columnIndex != 4 && columnIndex != 2;
+    }
+
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        Cuenta cuentaAModificar = cuentas.get(rowIndex);
+        switch (columnIndex){
+            case 0:
+                cuentaAModificar.setIban((String) aValue);
+                break;
+            case 1:
+                cuentaAModificar.setCreditCard((String) aValue);
+                break;
+            case 2:
+                cuentaAModificar.setBalance((Double) aValue);
+                break;
+            case 3:
+                cuentaAModificar.setFullName((String) aValue);
+                break;
+        }
+        cuentaDAO.actualizarCuentaPorId(cuentaAModificar);
+    }
+
     public void addRow(Cuenta cuenta) {
         cuentaDAO.insertarCuenta(cuenta);
         cuentas.add(cuenta);
         fireTableDataChanged();
+        cuentaDAO.listarCuentas();
     }
 
     public void removeRow(int row) {
@@ -66,10 +91,8 @@ public class ModeloTablas extends AbstractTableModel {
             return;
         //eliminar de la BD
         cuentaDAO.borrarCuentaPorId(cuentas.get(row).getId().toString());
-
         //eliminar de la lista
         cuentas.remove(row);
-
         fireTableDataChanged();
     }
 }
