@@ -56,7 +56,7 @@ public class ModeloTablas extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex != 4 && columnIndex != 2;
+        return columnIndex != 4;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ModeloTablas extends AbstractTableModel {
                 cuentaAModificar.setCreditCard((String) aValue);
                 break;
             case 2:
-                cuentaAModificar.setBalance((Double) aValue);
+                cuentaAModificar.setBalance(Double.parseDouble((String) aValue));
                 break;
             case 3:
                 cuentaAModificar.setFullName((String) aValue);

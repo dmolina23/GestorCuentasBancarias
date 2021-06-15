@@ -66,6 +66,7 @@ public class CuentaDAONoSQL implements CuentaDAO {
         coleccion.updateOne(eq("_id", cuenta.getId()),Updates.combine(
                 Updates.set("iban",cuenta.getIban()),
                 Updates.set("creditCard",cuenta.getCreditCard()),
+                Updates.set("balance",cuenta.getBalance()),
                 Updates.set("fullName",cuenta.getFullName())
         ));
     }
