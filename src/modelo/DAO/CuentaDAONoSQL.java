@@ -24,8 +24,6 @@ public class CuentaDAONoSQL implements CuentaDAO {
     public List<Cuenta> listarCuentas() {
         List<Cuenta> listaCuentas = new ArrayList<>();
         coleccion.find().forEach((Consumer<Document>) (Document d) -> {
-            String fecha;
-            LocalDate fechaActual = LocalDate.now();
             listaCuentas.add(new Cuenta(
                     d.getObjectId("_id"),
                     d.getString("iban"),

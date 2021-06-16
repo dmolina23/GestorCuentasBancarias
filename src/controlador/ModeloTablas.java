@@ -81,12 +81,13 @@ public class ModeloTablas extends AbstractTableModel {
 
     public void addRow(Cuenta cuenta) {
         cuentaDAO.insertarCuenta(cuenta);
-        cuentas.add(cuenta);
         fireTableDataChanged();
         cuentaDAO.listarCuentas();
+        //cuentas.add(cuentas.get(cuentas.size() - 1));*/
     }
 
     public void removeRow(int row) {
+        cuentaDAO.listarCuentas();
         if (row < 0)
             return;
         //eliminar de la BD

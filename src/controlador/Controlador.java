@@ -43,7 +43,6 @@ public class Controlador {
         //añadimos la cuenta a la lista
         Cuenta cuenta = new Cuenta(iban,cCard,balance,name,date);
         modelo.addRow(cuenta);
-
         hideAdd();
     }
 
