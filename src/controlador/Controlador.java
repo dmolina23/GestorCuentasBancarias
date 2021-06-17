@@ -3,6 +3,7 @@ package controlador;
 import modelo.DAO.CuentaDAO;
 import modelo.DAO.CuentaDAONoSQL;
 import modelo.DTO.Cuenta;
+import org.bson.types.ObjectId;
 import vista.AppVista;
 
 import java.time.LocalDate;
@@ -34,6 +35,7 @@ public class Controlador {
     }
 
     private void guardarCuenta() {
+        ObjectId id = new ObjectId();
         String iban = vista.getIbanTextField().getText();
         String cCard = vista.getCcTextField().getText();
         Double balance = Double.valueOf(vista.getBalanceTextField().getText());
@@ -41,7 +43,7 @@ public class Controlador {
         String date = LocalDate.now().toString();
 
         //añadimos la cuenta a la lista
-        Cuenta cuenta = new Cuenta(iban,cCard,balance,name,date);
+        Cuenta cuenta = new Cuenta(id,iban,cCard,balance,name,date);
         modelo.addRow(cuenta);
         hideAdd();
     }
